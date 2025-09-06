@@ -15,7 +15,6 @@ export const handler: Handlers<Data> = {
     let games: Game[] = [];
     try {
       games = await getGamesFromDB();
-      // filter games by name or genre
       if (query) {
         games = games.filter((g) => {
           const nameMatch = g.name.toLowerCase().includes(query.toLowerCase());
@@ -38,16 +37,24 @@ export default function Home({ data }: PageProps<Data>) {
   return (
     <div class="p-8 max-w-3xl mx-auto">
       <h1 class="text-2xl font-bold mb-4">Games</h1>
-      <form method="get" action="/" class="mb-4">
+      <form method="get" action="/" class="mb-4 flex gap-2 items-center">
         <input
           name="q"
           value={query}
           placeholder="Search..."
           class="border px-2 py-1"
         />
-        <button type="submit" class="ml-2 px-3 py-1 border rounded">
+        <button type="submit" class="px-3 py-1 border rounded">
           Search
         </button>
+        {query && (
+          <a
+            href="/"
+            class="px-3 py-1 border rounded bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+          >
+            Clear
+          </a>
+        )}
       </form>
       <table class="min-w-full bg-white shadow rounded">
         <thead>
