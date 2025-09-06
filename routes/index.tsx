@@ -1,60 +1,34 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { Game, getGamesFromDB } from "../utils/db.ts";
-
 import {
   BookOpen,
   Brain,
   Car,
   Gamepad,
+  HandFist,
   Heart,
   Joystick,
-  ListTodo,
-  HandFist,
   LayoutPanelTop,
+  ListTodo,
+  LucideIcon,
+  MessageCircleQuestionMark,
   Mountain,
   Music,
   Puzzle,
   Search,
-  Spade,
   Shield,
-  Sword,
+  Spade,
   Sparkles,
+  Sword,
   Target,
-  MessageCircleQuestionMark,
   Volleyball,
-  LucideIcon
+  X,
 } from "lucide-preact";
 
 interface Data {
   games: Game[];
   query: string;
 }
-
-const genreColorMap: Record<string, string> = {
-  "Adventure": "bg-green-600 text-green-100",
-  "Arcade": "bg-yellow-600 text-yellow-100",
-  "Card & Board Game": "bg-teal-700 text-teal-100",
-  "Fighting": "bg-red-700 text-red-100",
-  "Hack and slash/Beat 'em up": "bg-pink-700 text-pink-100",
-  "Indie": "bg-blue-600 text-blue-100",
-  "MOBA": "bg-purple-700 text-purple-100",
-  "Music": "bg-indigo-600 text-indigo-100",
-  "Platform": "bg-cyan-700 text-cyan-100",
-  "Point-and-click": "bg-rose-700 text-rose-100",
-  "Puzzle": "bg-orange-700 text-orange-100",
-  "Quiz/Trivia": "bg-lime-700 text-lime-100",
-  "Racing": "bg-fuchsia-700 text-fuchsia-100",
-  "Real Time Strategy (RTS)": "bg-emerald-700 text-emerald-100",
-  "Role-playing (RPG)": "bg-violet-700 text-violet-100",
-  "Shooter": "bg-sky-700 text-sky-100",
-  "Simulator": "bg-stone-700 text-stone-100",
-  "Sport": "bg-amber-800 text-amber-100",
-  "Strategy": "bg-blue-800 text-blue-100",
-  "Tactical": "bg-pink-900 text-pink-100",
-  "Turn-based strategy (TBS)": "bg-neutral-700 text-neutral-100",
-  "Visual Novel": "bg-green-900 text-green-100",
-};
-const defaultGenreColor = "bg-orange-700 text-orange-100";
 
 const genreIconMap: Record<string, LucideIcon> = {
   "Adventure": Mountain,
@@ -126,17 +100,24 @@ export default function Home({ data }: PageProps<Data>) {
             name="q"
             value={query}
             placeholder="Search..."
-            class="border px-2 py-1"
+            class="border px-2 py-1 text-gray-800"
           />
-          <button type="submit" class="px-3 py-1 border rounded">
-            Search
+          <button
+            type="submit"
+            class="px-3 py-1 border rounded flex items-center justify-center"
+            aria-label="Search"
+            title="Search"
+          >
+            <Search size={18} class="align-middle" />
           </button>
           {query && (
             <a
               href="/"
-              class="px-3 py-1 border rounded bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+              class="px-3 py-1 border rounded flex items-center justify-center bg-gray-100 text-gray-800 hover:bg-gray-200 transition"
+              aria-label="Clear"
+              title="Clear"
             >
-              Clear
+              <X size={18} class="align-middle" />
             </a>
           )}
         </form>
