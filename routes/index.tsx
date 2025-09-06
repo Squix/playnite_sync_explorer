@@ -15,15 +15,20 @@ export const handler: Handlers<Data> = {
     let games: Game[] = [];
     try {
       games = await getGamesFromDB();
-      console.log(games[0]);
+      // filter games by name or genre
+      if (query) {
+        games = games.filter((g) => {
+          const nameMatch = g.name.toLowerCase().includes(query.toLowerCase());
+          const genres = Array.isArray(g.contents.Genres)
+            ? g.contents.Genres.map((genre: any) => genre.Name).join(" | ")
+            : "";
+          const genreMatch = genres.toLowerCase().includes(query.toLowerCase());
+          return nameMatch || genreMatch;
+        });
+      }
     } catch (error) {
-      console.log(error);
-      // fall back to sample data if DB is not reachable
-      games = [
-        { id: 1, name: "Apex Legends", contents: "Battle Royale" },
-        { id: 2, name: "Stardew Valley", contents: "Simulation" },
-        { id: 3, name: "Hades", contents: "Roguelike" },
-      ].filter((g) => g.name.toLowerCase().includes(query.toLowerCase()));
+      // rethrow any db errors
+      throw error;
     }
     return ctx.render({ games, query });
   },
@@ -59,7 +64,11 @@ export default function Home({ data }: PageProps<Data>) {
               <td class="border px-4 py-2">{g.id}</td>
               <td class="border px-4 py-2">{g.name}</td>
               <td class="border px-2 py-2 w-32">
-                {g.contents.Genres?.map((g: any) => g.Name).join(" | ")}
+                {Array.isArray(g.contents.Genres)
+                  ? g.contents.Genres.map((genre: any) => genre.Name).join(
+                    " | ",
+                  )
+                  : ""}
               </td>
             </tr>
           ))}
