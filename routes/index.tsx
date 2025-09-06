@@ -121,74 +121,82 @@ export default function Home({ data }: PageProps<Data>) {
             </a>
           )}
         </form>
-        <table class="min-w-full bg-gray-800 shadow rounded text-gray-100">
-          <thead>
-            <tr class="text-left">
-              <th class="border border-gray-700 px-4 py-2 w-12">Name</th>
-              <th class="border border-gray-700 px-4 py-2 w-64">Genres</th>
-              <th class="border border-gray-700 px-4 py-2 w-32">Stores</th>
-            </tr>
-          </thead>
-          <tbody>
-            {games.length === 0
-              ? (
-                <tr>
-                  <td
-                    class="border border-gray-700 px-4 py-4 text-center text-gray-400"
-                    colSpan={3}
-                  >
-                    no games found :(
-                  </td>
-                </tr>
-              )
-              : (
-                games.map((g) => (
-                  <tr key={g.id} class="even:bg-gray-700">
-                    <td class="border border-gray-700 px-4 py-2 w-64">
-                      {g.name}
-                    </td>
-                    <td class="border border-gray-700 px-4 py-2 w-64">
-                      {g.contents.Genres?.map((genre: any) => {
-                        const Icon = genreIconMap[genre.Name];
-                        return (
-                          <span class="group relative mr-2" key={genre.Id}>
-                            {Icon
-                              ? (
-                                <Icon
-                                  size={20}
-                                  class="inline align-middle"
-                                />
-                              )
-                              : (
-                                <Gamepad
-                                  size={20}
-                                  class="inline align-middle opacity-50"
-                                />
-                              )}
-                            <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block pointer-events-none z-10 bg-gray-800 text-gray-100 text-xs rounded px-2 py-1 shadow">
-                              {genre.Name}
-                            </span>
-                          </span>
-                        );
-                      })}
-                    </td>
-                    <td class="border border-gray-700 px-4 py-2 w-32">
-                      {g.contents.Source?.Name && (
-                        <span
-                          class={`inline-block whitespace-nowrap overflow-hidden text-ellipsis max-w-[7rem] rounded-full px-2 py-1 mr-1 text-xs font-semibold leading-none h-6 ${
-                            storeColorMap[g.contents.Source.Name] ||
-                            defaultStoreColor
-                          }`}
-                        >
-                          {g.contents.Source.Name}
-                        </span>
-                      )}
+        <div class="overflow-x-auto w-full">
+          <table class="min-w-full bg-gray-800 shadow rounded text-gray-100">
+            <thead>
+              <tr class="text-left">
+                <th class="border border-gray-700 px-4 py-2 min-w-[6rem]">
+                  Name
+                </th>
+                <th class="border border-gray-700 px-4 py-2 min-w-[10rem]">
+                  Genres
+                </th>
+                <th class="border border-gray-700 px-4 py-2 min-w-[7rem]">
+                  Stores
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {games.length === 0
+                ? (
+                  <tr>
+                    <td
+                      class="border border-gray-700 px-4 py-4 text-center text-gray-400"
+                      colSpan={3}
+                    >
+                      no games found :(
                     </td>
                   </tr>
-                ))
-              )}
-          </tbody>
-        </table>
+                )
+                : (
+                  games.map((g) => (
+                    <tr key={g.id} class="even:bg-gray-700">
+                      <td class="border border-gray-700 px-4 py-2 min-w-[6rem]">
+                        {g.name}
+                      </td>
+                      <td class="border border-gray-700 px-4 py-2 min-w-[10rem]">
+                        {g.contents.Genres?.map((genre: any) => {
+                          const Icon = genreIconMap[genre.Name];
+                          return (
+                            <span class="group relative mr-2" key={genre.Id}>
+                              {Icon
+                                ? (
+                                  <Icon
+                                    size={20}
+                                    class="inline align-middle"
+                                  />
+                                )
+                                : (
+                                  <Gamepad
+                                    size={20}
+                                    class="inline align-middle opacity-50"
+                                  />
+                                )}
+                              <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block pointer-events-none z-10 bg-gray-800 text-gray-100 text-xs rounded px-2 py-1 shadow">
+                                {genre.Name}
+                              </span>
+                            </span>
+                          );
+                        })}
+                      </td>
+                      <td class="border border-gray-700 px-4 py-2 min-w-[7rem]">
+                        {g.contents.Source?.Name && (
+                          <span
+                            class={`inline-block whitespace-nowrap overflow-hidden text-ellipsis max-w-[7rem] rounded-full px-2 py-1 mr-1 text-xs font-semibold leading-none h-6 ${
+                              storeColorMap[g.contents.Source.Name] ||
+                              defaultStoreColor
+                            }`}
+                          >
+                            {g.contents.Source.Name}
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
