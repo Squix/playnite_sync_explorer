@@ -59,7 +59,6 @@ export default function Home({ data }: PageProps<Data>) {
       <table class="min-w-full bg-white shadow rounded">
         <thead>
           <tr class="text-left">
-            <th class="border px-2 py-2 w-12">ID</th>
             <th class="border px-4 py-2 w-12">Name</th>
             <th class="border px-4 py-2 w-64">Genres</th>
           </tr>
@@ -67,7 +66,6 @@ export default function Home({ data }: PageProps<Data>) {
         <tbody>
           {games.map((g) => (
             <tr key={g.id} class="even:bg-gray-50">
-              <td class="border px-2 py-2 w-8">{g.id}</td>
               <td class="border px-4 py-2 w-64">{g.name}</td>
               <td class="border px-4 py-2 w-64">
                 {g.contents.Genres?.map((g: any) => g.Name).join(" | ")}
