@@ -14,7 +14,7 @@ export async function getGamesFromDB() {
       id: number;
       name: string;
       contents: Record<string, string>;
-    }>("SELECT id, name, contents FROM playnite_game");
+    }>("SELECT id, name, contents FROM playnite_game ORDER BY name");
     return result.rows;
   } finally {
     await client.end();
