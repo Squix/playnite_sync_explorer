@@ -94,7 +94,7 @@ export default function Home({ data }: PageProps<Data>) {
   return (
     <div class="bg-gray-900 text-gray-100 min-h-screen w-full">
       <div class="p-8 max-w-3xl mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Games</h1>
+        <h1 class="text-2xl font-bold mb-4">Games ({games.length})</h1>
         <form method="get" action="/" class="mb-4 flex gap-2 items-center">
           <input
             name="q"
