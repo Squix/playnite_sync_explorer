@@ -3,5 +3,3 @@ services:
     build: .
     environment:
       - DENO_DEPLOYMENT_ID=${BASE64_64} #for generating the UNIQUE_BUILD_ID required by Fresh, using Coolify 'magic env variables'.
-    ports:
-      - "3000:8000"
