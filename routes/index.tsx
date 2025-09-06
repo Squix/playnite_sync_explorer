@@ -27,7 +27,6 @@ export const handler: Handlers<Data> = {
         });
       }
     } catch (error) {
-      // rethrow any db errors
       throw error;
     }
     return ctx.render({ games, query });
@@ -37,7 +36,7 @@ export const handler: Handlers<Data> = {
 export default function Home({ data }: PageProps<Data>) {
   const { games, query } = data;
   return (
-    <div class="p-12 w-max-2xl">
+    <div class="p-8 max-w-3xl mx-auto">
       <h1 class="text-2xl font-bold mb-4">Games</h1>
       <form method="get" action="/" class="mb-4">
         <input
@@ -53,22 +52,18 @@ export default function Home({ data }: PageProps<Data>) {
       <table class="min-w-full bg-white shadow rounded">
         <thead>
           <tr class="text-left">
-            <th class="border px-4 py-2 w-8">ID</th>
+            <th class="border px-2 py-2 w-12">ID</th>
             <th class="border px-4 py-2 w-12">Name</th>
-            <th class="border px-4 py-2 w-1/6">Genres</th>
+            <th class="border px-4 py-2 w-64">Genres</th>
           </tr>
         </thead>
         <tbody>
           {games.map((g) => (
             <tr key={g.id}>
-              <td class="border px-4 py-2">{g.id}</td>
-              <td class="border px-4 py-2">{g.name}</td>
-              <td class="border px-2 py-2 w-32">
-                {Array.isArray(g.contents.Genres)
-                  ? g.contents.Genres.map((genre: any) => genre.Name).join(
-                    " | ",
-                  )
-                  : ""}
+              <td class="border px-2 py-2 w-8">{g.id}</td>
+              <td class="border px-4 py-2 w-64">{g.name}</td>
+              <td class="border px-4 py-2 w-64">
+                {g.contents.Genres?.map((g: any) => g.Name).join(" | ")}
               </td>
             </tr>
           ))}
