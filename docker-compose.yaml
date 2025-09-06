@@ -1,5 +1,5 @@
 services:
-  deno-app:
+  playnite-sync-explorer:
     build: .
     environment:
       - DENO_DEPLOYMENT_ID=${BASE64_64} #for generating the UNIQUE_BUILD_ID required by Fresh, using Coolify 'magic env variables'.
