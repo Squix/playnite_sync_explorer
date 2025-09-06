@@ -19,8 +19,10 @@
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "@db/postgres": "jsr:@db/postgres@^0.19.5",
-    "preact": "https://esm.sh/preact@10.22.0",
-    "preact/": "https://esm.sh/preact@10.22.0/",
+    "lucide-preact": "npm:lucide-preact@^0.542.0",
+    "preact": "npm:preact@10.22.1",
+    "preact/jsx-runtime": "npm:preact@10.22.1/jsx-runtime",
+    "preact/hooks": "npm:preact@10.22.1/hooks",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "tailwindcss": "npm:tailwindcss@3.4.1",
