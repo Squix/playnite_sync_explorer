@@ -66,7 +66,7 @@ export default function Home({ data }: PageProps<Data>) {
         </thead>
         <tbody>
           {games.map((g) => (
-            <tr key={g.id}>
+            <tr key={g.id} class="even:bg-gray-50">
               <td class="border px-2 py-2 w-8">{g.id}</td>
               <td class="border px-4 py-2 w-64">{g.name}</td>
               <td class="border px-4 py-2 w-64">
