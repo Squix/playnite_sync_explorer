@@ -75,7 +75,10 @@ export const handler: Handlers<Data> = {
         games = games.filter((g) => {
           const nameMatch = g.name.toLowerCase().includes(query.toLowerCase());
           const genres = Array.isArray(g.contents.genres)
-            ? g.contents.genres.map((genre: any) => genre.Name).join(" | ")
+            ? g.contents.genres.map((genre: {
+                          id: string;
+                          name: string;
+                        }) => genre.name).join(" | ")
             : "";
           const genreMatch = genres.toLowerCase().includes(query.toLowerCase());
           return nameMatch || genreMatch;
@@ -98,7 +101,7 @@ export default function Home({ data }: PageProps<Data>) {
           <input
             name="q"
             value={query}
-            placeholder="Search..."
+            placeholder="Name, Genre..."
             class="border px-2 py-1 text-gray-800"
           />
           <button
