@@ -6,10 +6,8 @@ import {
   Car,
   Gamepad,
   HandFist,
-  Heart,
   Joystick,
   LayoutPanelTop,
-  ListTodo,
   LucideIcon,
   MessageCircleQuestionMark,
   Mountain,
@@ -53,6 +51,7 @@ const genreIconMap: Record<string, LucideIcon> = {
   "Tactical": Shield,
   "Turn-based strategy (TBS)": Brain,
   "Visual Novel": BookOpen,
+  "Multiplayer online battle arena": Shield
 };
 
 const storeColorMap: Record<string, string> = {
@@ -75,8 +74,8 @@ export const handler: Handlers<Data> = {
       if (query) {
         games = games.filter((g) => {
           const nameMatch = g.name.toLowerCase().includes(query.toLowerCase());
-          const genres = Array.isArray(g.contents.Genres)
-            ? g.contents.Genres.map((genre: any) => genre.Name).join(" | ")
+          const genres = Array.isArray(g.contents.genres)
+            ? g.contents.genres.map((genre: any) => genre.Name).join(" | ")
             : "";
           const genreMatch = genres.toLowerCase().includes(query.toLowerCase());
           return nameMatch || genreMatch;
@@ -155,10 +154,13 @@ export default function Home({ data }: PageProps<Data>) {
                         {g.name}
                       </td>
                       <td class="border border-gray-700 px-4 py-2 min-w-[10rem]">
-                        {g.contents.Genres?.map((genre: any) => {
-                          const Icon = genreIconMap[genre.Name];
+                        {g.contents.genres?.map((genre: {
+                          id: string;
+                          name: string;
+                        }) => {
+                          const Icon = genreIconMap[genre.name];
                           return (
-                            <span class="group relative mr-2" key={genre.Id}>
+                            <span class="group relative mr-2" key={genre.id}>
                               {Icon
                                 ? (
                                   <Icon
@@ -173,21 +175,21 @@ export default function Home({ data }: PageProps<Data>) {
                                   />
                                 )}
                               <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block pointer-events-none z-10 bg-gray-800 text-gray-100 text-xs rounded px-2 py-1 shadow">
-                                {genre.Name}
+                                {genre.name}
                               </span>
                             </span>
                           );
                         })}
                       </td>
                       <td class="border border-gray-700 px-4 py-2 min-w-[7rem]">
-                        {g.contents.Source?.Name && (
+                        {g.contents.source?.name && (
                           <span
                             class={`inline-block whitespace-nowrap overflow-hidden text-ellipsis max-w-[7rem] rounded-full px-2 py-1 mr-1 text-xs font-semibold leading-none h-6 ${
-                              storeColorMap[g.contents.Source.Name] ||
+                              storeColorMap[g.contents.source.name] ||
                               defaultStoreColor
                             }`}
                           >
-                            {g.contents.Source.Name}
+                            {g.contents.source.name}
                           </span>
                         )}
                       </td>
